@@ -1,7 +1,7 @@
 .card__name {
     display: block;
     width: calc(100% - 23px);
-    white-space: nowrap; 
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     font-weight: 900;
