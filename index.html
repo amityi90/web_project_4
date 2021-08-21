@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,10 +8,80 @@
     <link rel="stylesheet" href="pages/index.css">
     <title>Around the U.S.</title>
 </head>
+
 <body class="page">
     <header class="header">
-        <img class="header__image" src="./images/around-the-us-logo.svg">
+        <img class="header__image" src="./images/around-the-us-logo.svg" alt="profile picture">
     </header>
-    
+    <main class="page__main">
+        <section class="profile">
+            <div class="profile__info-container">
+                <img class="profile__avatar" src="./images/Jacques-Cousteau-image.jpg">
+                <div class="profile__info">
+                    <h2 class="profile__name">Jacques Cousteau
+                        <button class="profile__edit-button"></button>
+                    </h2>
+                    <p class="profile__proffesion">Explorer</p>
+                </div>
+            </div>
+            <button class="profile__add-button"></button>
+        </section>
+        <section class="cards">
+            <div class="card">
+                <img class="card__image" src="./images/Yosemite Valley.jpg">
+                <div class="card__details">
+                    <h2 class="card__name">Yosemite Valley</h2>
+                    <button class="card__heart"></button>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card__image" src="./images/Lake Louise.jpg">
+                <div class="card__details">
+                    <h2 class="card__name">Lake Louise</h2>
+                    <button class="card__heart"></button>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card__image" src="./images/Bald Mountains.jpg">
+                <div class="card__details">
+                    <h2 class="card__name">Bald Mountains</h2>
+                    <button class="card__heart"></button>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card__image" src="./images/Latemar.jpg">
+                <div class="card__details">
+                    <h2 class="card__name">Latemar</h2>
+                    <button class="card__heart"></button>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card__image" src="./images/Vanoise National Park.jpg">
+                <div class="card__details">
+                    <h2 class="card__name">Vanoise National Park</h2>
+                    <button class="card__heart"></button>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card__image" src="./images/Lago di Braies.jpg">
+                <div class="card__details">
+                    <h2 class="card__name">Lago di Braies</h2>
+                    <button class="card__heart"></button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <p class="footer__copyrigth">&#169; 2021 Around The U.S.</p>
+    </footer>
+    <form class="form form_disable">
+        <button class="form__close-button"></button>
+        <h2 class="form__heading">Edit profile</h2>
+        <input class="form__text-input form__text-input_content_name" type="text" placeholder="Name">
+        <input class="form__text-input form__text-input_content_profession" type="text" placeholder="About me">
+        <button class="form__save-button" type="submit">Save</button>
+    </form>
+    <script src="./script.js"></script>
 </body>
+
 </html>
