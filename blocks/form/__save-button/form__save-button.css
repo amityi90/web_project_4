@@ -2,14 +2,21 @@
     border-radius: 2px;
     height: 50px;
     width: 100%;
-    margin: 48px 0 0;
+    margin: 48px 0 36px;
     font-size: 18px;
     line-height: 22px;
     text-align: center;
     color: white;
     background-color: black;
+    cursor: pointer;
 }
 
 .form__save-button:hover {
     opacity: .8;
+}
+
+@media screen and (max-width: 450px) {
+    .form__save-button {
+        margin-bottom: 0;
+    }
 }

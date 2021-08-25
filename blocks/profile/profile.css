@@ -5,6 +5,7 @@
 @import url(./__edit-button/profile__edit-button.css);
 @import url(./__add-button/profile__add-button.css);
 @import url(./__info-container/profile__info-container.css);
+@import url(./__name-container/profile__name-container.css);
 
 .profile {
     display: flex;
@@ -12,7 +13,7 @@
     justify-content: space-between;
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 520px) {
     .profile {
         flex-direction: column;
         align-items: center;

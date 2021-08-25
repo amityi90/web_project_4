@@ -1,11 +1,14 @@
 .profile__proffesion {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-size: 18px;
     line-height: 22px;
     color: white;
     margin: 16px 0 0;
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 520px) {
    .profile__proffesion {
        margin-top: 14px;
        font-size: 14px;

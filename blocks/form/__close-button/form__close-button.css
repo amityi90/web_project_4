@@ -12,13 +12,14 @@
     align-self: flex-end;
     border: 2px solid transparent;
     box-sizing: border-box;
+    cursor: pointer;
 }
 
 .form__close-button:hover {
     opacity: .6;
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 530px) {
     .form__close-button {
         right: 0;
         width: 26px;

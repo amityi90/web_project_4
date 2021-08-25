@@ -12,13 +12,14 @@
     align-self: center;
     background-color: black;
     margin: 0;
+    cursor: pointer;
 }
 
 .profile__add-button:hover {
     opacity: .6;
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 520px) {
     .profile__add-button {
         width: 100%;
         margin-top: 36px;

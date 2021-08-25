@@ -18,69 +18,78 @@
             <div class="profile__info-container">
                 <img class="profile__avatar" src="./images/Jacques-Cousteau-image.jpg" alt="profile photo">
                 <div class="profile__info">
-                    <h2 class="profile__name">Jacques Cousteau
-                        <button class="profile__edit-button"></button>
-                    </h2>
+                    <div class="profile__name-container">
+                        <h1 class="profile__name">Jacques Cousteau</h1>
+                        <button class="profile__edit-button" type="button" aria-label="edit-profile"></button>
+                    </div>
                     <p class="profile__proffesion">Explorer</p>
                 </div>
+
             </div>
-            <button class="profile__add-button"></button>
+            <button class="profile__add-button" type="button" aria-label="add"></button>
         </section>
         <section class="cards">
-            <div class="card">
-                <img class="card__image" src="./images/Yosemite Valley.jpg" alt="river between forests and mountains in yosemite valley">
+            <article class="card">
+                <img class="card__image" src="./images/Yosemite Valley.jpg"
+                    alt="river between forests and mountains in yosemite valley">
                 <div class="card__details">
                     <h2 class="card__name">Yosemite Valley</h2>
-                    <button class="card__heart"></button>
+                    <button class="card__heart" type="button" aria-label="like"></button>
                 </div>
-            </div>
-            <div class="card">
+            </article>
+            <article class="card">
                 <img class="card__image" src="./images/Lake Louise.jpg" alt="lack louise around the mountains">
                 <div class="card__details">
                     <h2 class="card__name">Lake Louise</h2>
-                    <button class="card__heart"></button>
+                    <button class="card__heart" type="button" aria-label="like"></button>
                 </div>
-            </div>
-            <div class="card">
+            </article>
+            <article class="card">
                 <img class="card__image" src="./images/Bald Mountains.jpg" alt="sunset in bald mountains">
                 <div class="card__details">
                     <h2 class="card__name">Bald Mountains</h2>
-                    <button class="card__heart"></button>
+                    <button class="card__heart" type="button" aria-label="like"></button>
                 </div>
-            </div>
-            <div class="card">
+            </article>
+            <article class="card">
                 <img class="card__image" src="./images/Latemar.jpg" alt="stars above rocky ice picks in latemar">
                 <div class="card__details">
                     <h2 class="card__name">Latemar</h2>
-                    <button class="card__heart"></button>
+                    <button class="card__heart" type="button" aria-label="like"></button>
                 </div>
-            </div>
-            <div class="card">
-                <img class="card__image" src="./images/Vanoise National Park.jpg" alt="lake under the mountains in vanoise national park">
+            </article>
+            <article class="card">
+                <img class="card__image" src="./images/Vanoise National Park.jpg"
+                    alt="lake under the mountains in vanoise national park">
                 <div class="card__details">
                     <h2 class="card__name">Vanoise National Park</h2>
-                    <button class="card__heart"></button>
+                    <button class="card__heart" type="button" aria-label="like"></button>
                 </div>
-            </div>
-            <div class="card">
-                <img class="card__image" src="./images/Lago di Braies.jpg" alt="boats and a little hut on the lake under the mountains in lago di braies">
+            </article>
+            <article class="card">
+                <img class="card__image" src="./images/Lago di Braies.jpg"
+                    alt="boats and a little hut on the lake under the mountains in lago di braies">
                 <div class="card__details">
                     <h2 class="card__name">Lago di Braies</h2>
-                    <button class="card__heart"></button>
+                    <button class="card__heart" type="button" aria-label="like"></button>
                 </div>
-            </div>
+            </article>
         </section>
     </main>
     <footer class="footer">
         <p class="footer__copyrigth">&#169; 2021 Around The U.S.</p>
     </footer>
-    <form class="form form_disable">
-        <button class="form__close-button"></button>
-        <h2 class="form__heading">Edit profile</h2>
-        <input class="form__text-input form__text-input_content_name" type="text" placeholder="Name">
-        <input class="form__text-input form__text-input_content_profession" type="text" placeholder="About me">
-        <button class="form__save-button" type="submit">Save</button>
-    </form>
+    <section class="form form_disable">
+        <div class="form__conainer">
+            <button class="form__close-button" type="button" aria-label="close-form"></button>
+            <form name="edit-profile">
+                <h2 class="form__heading">Edit profile</h2>
+                <input class="form__text-input form__text-input_content_name" type="text" placeholder="Name" name="name">
+                <input class="form__text-input form__text-input_content_profession" type="text" placeholder="About me" name="proffesion">
+                <button class="form__save-button" type="submit">Save</button>
+            </form>
+        </div>
+    </section>
     <script src="./script.js"></script>
 </body>
 
