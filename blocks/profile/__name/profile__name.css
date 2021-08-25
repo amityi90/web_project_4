@@ -1,5 +1,5 @@
 .profile__name {
-    width: calc(100% - 34px);
+    max-width: calc(100% - 34px);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
