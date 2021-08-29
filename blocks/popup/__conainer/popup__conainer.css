@@ -1,4 +1,4 @@
-.form__conainer {
+.popup__conainer {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -15,7 +15,7 @@
 }
 
 @media screen and (max-width: 450px) {
-    .form__conainer {
+    .popup__conainer {
         width: calc(100% - 38px);
         padding: 25px 22px;
     }
