@@ -14,7 +14,6 @@ const placeNameInput = popupFormPlace.querySelector(".popup__text-input_content_
 const placeLinkInput = popupFormPlace.querySelector(".popup__text-input_content_link");
 const popupBigScreenImage = document.querySelector(".popup_content_big-screen-image");
 const closeButtonImage = popupBigScreenImage.querySelector(".popup__close-button");
-//the photos are in their original size that it would looks fine when they are showing larger.
 const initialCards = [
     {
         name: "Hungary",
