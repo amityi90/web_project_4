@@ -16,30 +16,30 @@ const popupBigScreenImage = document.querySelector(".popup_content_big-screen-im
 const closeButtonImage = popupBigScreenImage.querySelector(".popup__close-button");
 const initialCards = [
     {
-        name: "Hungary",
-        link: "./images/Kirsche.jpg"
+      name: "Yosemite Valley",
+      link: "https://code.s3.yandex.net/web-code/yosemite.jpg"
     },
     {
-        name: "Slovenia",
-        link: "./images/sunset.jpg"
+      name: "Lake Louise",
+      link: "https://code.s3.yandex.net/web-code/lake-louise.jpg"
     },
     {
-        name: "Croatia",
-        link: "./images/tree-leafs.jpg"
+      name: "Bald Mountains",
+      link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg"
     },
     {
-        name: "Bosnia and Herzegovina",
-        link: "./images/forest-way.jpg"
+      name: "Latemar",
+      link: "https://code.s3.yandex.net/web-code/latemar.jpg"
     },
     {
-        name: "Serbia",
-        link: "./images/red-flowers.jpg"
+      name: "Vanoise National Park",
+      link: "https://code.s3.yandex.net/web-code/vanoise.jpg"
     },
     {
-        name: "Romania",
-        link: "./images/green-mountains.jpg"
+      name: "Lago di Braies",
+      link: "https://code.s3.yandex.net/web-code/lago.jpg"
     }
-];
+  ]; 
 
 function editButton() {
     popupFormProfile.classList.remove("popup_disable");
