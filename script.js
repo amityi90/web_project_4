@@ -18,7 +18,7 @@ const closeButtonImage = popupBigScreenImage.querySelector(".popup__close-button
 const initialCards = [
     {
         name: "Hungary",
-        link: "./images/sea-waves.jpg"
+        link: "./images/Kirsche.jpg"
     },
     {
         name: "Slovenia",
