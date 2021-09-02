@@ -1,29 +1,112 @@
-let popupForm = document.querySelector(".popup");
-let editProfile = document.querySelector(".profile__edit-button");
-let closeButton = document.querySelector(".popup__close-button");
-let formContent = document.querySelector(".popup__form");
-let nameProfile = document.querySelector(".profile__name");
-let proffesionProfile = document.querySelector(".profile__proffesion");
-let nameInput = document.querySelector(".popup__text-input_content_name");
-let proffesionInput = document.querySelector(".popup__text-input_content_profession");
+const popupFormProfile = document.querySelector(".popup_content_profile-edit");
+const editProfile = document.querySelector(".profile__edit-button");
+const closeButtonProfile = popupFormProfile.querySelector(".popup__close-button");
+const formContentProfile = popupFormProfile.querySelector(".popup__form");
+const nameProfile = document.querySelector(".profile__name");
+const proffesionProfile = document.querySelector(".profile__proffesion");
+const nameInput = popupFormProfile.querySelector(".popup__text-input_content_name");
+const proffesionInput = popupFormProfile.querySelector(".popup__text-input_content_profession");
+const addPlaceButton = document.querySelector(".profile__add-button");
+const popupFormPlace = document.querySelector(".popup_content_add-place");
+const closeButtonPlace = popupFormPlace.querySelector(".popup__close-button");
+const formContentPlace = popupFormPlace.querySelector(".popup__form");
+const placeNameInput = popupFormPlace.querySelector(".popup__text-input_content_place-name");
+const placeLinkInput = popupFormPlace.querySelector(".popup__text-input_content_link");
+const popupBigScreenImage = document.querySelector(".popup_content_big-screen-image");
+const closeButtonImage = popupBigScreenImage.querySelector(".popup__close-button");
+//the photos are in their original size that it would looks fine when they are showing larger.
+const initialCards = [
+    {
+        name: "Hungary",
+        link: "./images/sea-waves.jpg"
+    },
+    {
+        name: "Slovenia",
+        link: "./images/sunset.jpg"
+    },
+    {
+        name: "Croatia",
+        link: "./images/tree-leafs.jpg"
+    },
+    {
+        name: "Bosnia and Herzegovina",
+        link: "./images/forest-way.jpg"
+    },
+    {
+        name: "Serbia",
+        link: "./images/red-flowers.jpg"
+    },
+    {
+        name: "Romania",
+        link: "./images/green-mountains.jpg"
+    }
+];
 
 function editButton() {
-    popupForm.classList.remove("popup_disable");
+    popupFormProfile.classList.remove("popup_disable");
     nameInput.value = nameProfile.textContent;
     proffesionInput.value = proffesionProfile.textContent;
 }
 
-function closePopup() {
-    popupForm.classList.add("popup_disable");
+function addPlace() {
+    popupFormPlace.classList.remove("popup_disable");
+    placeNameInput.value = "";
+    placeLinkInput.value = "";
+}
+
+function closePopup(evt) {
+    evt.target.parentElement.parentElement.classList.add("popup_disable");
+    console.log("close!");
 }
 
 function handleFormSubmit(evt) {
     evt.preventDefault();
     nameProfile.textContent = nameInput.value;
     proffesionProfile.textContent = proffesionInput.value;
-    closePopup();
+    closePopup(evt);
 }
 
+function createCard(card) {
+    const cardTemplate = document.querySelector("#card").content;
+    const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+    cardElement.querySelector(".card__image").src = card.link;
+    cardElement.querySelector(".card__image").alt = "photo of" + card.name;
+    cardElement.querySelector(".card__name").textContent = card.name;
+    return cardElement;
+}
+
+function addCard(card) {
+    cardElement = createCard(card);
+    const cardsElement = document.querySelector(".cards");
+    cardElement.querySelector(".card__heart").addEventListener('click', evt => evt.target.classList.toggle("card__heart_active"));
+    cardElement.querySelector(".card__delete").addEventListener('click', evt => evt.target.parentElement.remove());
+    cardElement.querySelector(".card__image").addEventListener('click', evt => openBigScreenImage(evt));
+    cardsElement.prepend(cardElement);
+}
+
+function handlePlaceAdd(evt) {
+    evt.preventDefault();
+    let card = new Object();
+    card.name = placeNameInput.value;
+    card.link = placeLinkInput.value;
+    addCard(card);
+    closePopup(evt);
+}
+
+function openBigScreenImage(evt) {
+    popupBigScreenImage.querySelector(".big-screen-image__image").src = evt.target.src;
+    popupBigScreenImage.querySelector(".big-screen-image__name").textContent = evt.target.parentElement.nextElementSibling.firstElementChild.textContent;
+    popupBigScreenImage.classList.remove("popup_disable");
+}
+
+initialCards.forEach(card => addCard(card));
+
 editProfile.addEventListener('click', editButton);
-closeButton.addEventListener('click', closePopup);
-formContent.addEventListener('submit', handleFormSubmit);
+addPlaceButton.addEventListener('click', addPlace);
+closeButtonProfile.addEventListener('click', evt => closePopup(evt));
+closeButtonPlace.addEventListener('click', evt => closePopup(evt));
+formContentProfile.addEventListener('submit', evt => handleFormSubmit(evt));
+formContentPlace.addEventListener('submit', evt => handlePlaceAdd(evt));
+closeButtonImage.addEventListener('click', evt => closePopup(evt));
+
+

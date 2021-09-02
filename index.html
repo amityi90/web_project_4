@@ -28,67 +28,56 @@
             <button class="profile__add-button" type="button" aria-label="add"></button>
         </section>
         <section class="cards">
-            <article class="card">
-                <img class="card__image" src="./images/Yosemite-Valley.jpg"
-                    alt="river between forests and mountains in yosemite valley">
-                <div class="card__details">
-                    <h2 class="card__name">Yosemite Valley</h2>
-                    <button class="card__heart" type="button" aria-label="like"></button>
-                </div>
-            </article>
-            <article class="card">
-                <img class="card__image" src="./images/Lake-Louise.jpg" alt="lack louise around the mountains">
-                <div class="card__details">
-                    <h2 class="card__name">Lake Louise</h2>
-                    <button class="card__heart" type="button" aria-label="like"></button>
-                </div>
-            </article>
-            <article class="card">
-                <img class="card__image" src="./images/Bald-Mountains.jpg" alt="sunset in bald mountains">
-                <div class="card__details">
-                    <h2 class="card__name">Bald Mountains</h2>
-                    <button class="card__heart" type="button" aria-label="like"></button>
-                </div>
-            </article>
-            <article class="card">
-                <img class="card__image" src="./images/Latemar.jpg" alt="stars above rocky ice picks in latemar">
-                <div class="card__details">
-                    <h2 class="card__name">Latemar</h2>
-                    <button class="card__heart" type="button" aria-label="like"></button>
-                </div>
-            </article>
-            <article class="card">
-                <img class="card__image" src="./images/Vanoise-National-Park.jpg"
-                    alt="lake under the mountains in vanoise national park">
-                <div class="card__details">
-                    <h2 class="card__name">Vanoise National Park</h2>
-                    <button class="card__heart" type="button" aria-label="like"></button>
-                </div>
-            </article>
-            <article class="card">
-                <img class="card__image" src="./images/Lago-di-Braies.jpg"
-                    alt="boats and a little hut on the lake under the mountains in lago di braies">
-                <div class="card__details">
-                    <h2 class="card__name">Lago di Braies</h2>
-                    <button class="card__heart" type="button" aria-label="like"></button>
-                </div>
-            </article>
         </section>
     </main>
     <footer class="footer">
         <p class="footer__copyrigth">&#169; 2021 Around The U.S.</p>
     </footer>
-    <section class="popup popup_disable">
+    <section class="popup popup_disable popup_content_profile-edit">
         <div class="popup__conainer">
             <button class="popup__close-button" type="button" aria-label="close-form"></button>
             <form class="popup__form" name="edit-profile">
                 <h2 class="popup__heading">Edit profile</h2>
-                <input class="popup__text-input popup__text-input_content_name" type="text" placeholder="Name" name="name">
-                <input class="popup__text-input popup__text-input_content_profession" type="text" placeholder="About me" name="proffesion">
+                <input class="popup__text-input popup__text-input_content_name" type="text" placeholder="Name"
+                    name="name">
+                <input class="popup__text-input popup__text-input_content_profession" type="text" placeholder="About me"
+                    name="proffesion">
                 <button class="popup__save-button" type="submit">Save</button>
             </form>
         </div>
     </section>
+    <section class="popup popup_disable popup_content_add-place">
+        <div class="popup__conainer">
+            <button class="popup__close-button" type="button" aria-label="close-form"></button>
+            <form class="popup__form" name="add-photo">
+                <h2 class="popup__heading">New place</h2>
+                <input class="popup__text-input popup__text-input_content_place-name" type="text" placeholder="Title"
+                    name="place-name">
+                <input class="popup__text-input popup__text-input_content_link" type="text" placeholder="Image link"
+                    name="link">
+                <button class="popup__save-button" type="submit">Create</button>
+            </form>
+        </div>
+    </section>
+    <section class="popup popup_disable popup_content_big-screen-image">
+        <div class="big-screen-image">
+            <button class="popup__close-button" type="button" aria-label="close-form"></button>
+            <img class="big-screen-image__image" src="./images/Jacques-Cousteau-image.jpg" alt="profile photo">
+            <p class="big-screen-image__name">something</p>
+        </div>
+    </section>
+    <template id="card">
+        <article class="card">
+            <button class="card__delete" type="button" aria-label="delete"></button>
+            <div class="card__image-container">
+                <img class="card__image">
+            </div>
+            <div class="card__details">
+                <h2 class="card__name"></h2>
+                <button class="card__heart" type="button" aria-label="like"></button>
+            </div>
+        </article>
+    </template>
     <script src="./script.js"></script>
 </body>
 

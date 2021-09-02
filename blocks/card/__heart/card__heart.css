@@ -13,8 +13,3 @@
 .card__heart:hover {
     opacity: .5;
 }
-
-.card__heart:active {
-    background-image: url(../../../images/black-heart.png);
-    opacity: 1;
-}
