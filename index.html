@@ -51,14 +51,14 @@
     <section class="popup popup_disable popup_content_add-place">
         <div class="popup__conainer">
             <button class="popup__close-button" type="button" aria-label="close-form"></button>
-            <form class="popup__form" name="add-photo">
+            <form class="popup__form" name="add-photo" novalidate>
                 <h2 class="popup__heading">New place</h2>
-                <input class="popup__text-input popup__text-input_content_place-name" type="text" placeholder="Title"
-                    name="place-name">
-                <span class="popup__text-input-error"></span>
-                <input class="popup__text-input popup__text-input_content_link" type="text" placeholder="Image link"
-                    name="link">
-                <span class="popup__text-input-error"></span>
+                <input class="popup__text-input popup__text-input_content_place-name" id="input-place-name" type="text" placeholder="Title"
+                    name="place-name" minlength="1" maxlength="30" required>
+                <span class="popup__text-input-error" id="input-place-name-error"></span>
+                <input class="popup__text-input popup__text-input_content_link" id="input-link" type="url" placeholder="Image link"
+                    name="link" required>
+                <span class="popup__text-input-error" id="input-link-error"></span>
                 <button class="popup__save-button" type="submit">Create</button>
             </form>
         </div>
