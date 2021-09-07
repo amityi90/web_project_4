@@ -42,7 +42,7 @@ const initialCards = [
   }
 ];
 
-function editButton() {  
+function editButton() {
   openPopup(popupFormProfile);
   nameInput.value = nameProfile.textContent;
   proffesionInput.value = proffesionProfile.textContent;
@@ -107,6 +107,12 @@ function openBigScreenImage(evt) {
   openPopup(popupBigScreenImage);
 }
 
+function closeFromLayout(evt, popup) {
+  if (Array.from(evt.target.classList).includes("popup")) {
+    closePopup(popup);
+  }
+}
+
 initialCards.forEach(card => addCard(card));
 
 editProfile.addEventListener('click', editButton);
@@ -116,6 +122,8 @@ closeButtonPlace.addEventListener('click', evt => closePopup(popupFormPlace));
 formContentProfile.addEventListener('submit', evt => handleFormSubmit(evt));
 formContentPlace.addEventListener('submit', evt => handlePlaceAdd(evt));
 closeButtonImage.addEventListener('click', evt => closePopup(popupBigScreenImage));
+popupFormProfile.addEventListener('click', evt => closeFromLayout(evt, popupFormProfile));
+popupFormPlace.addEventListener('click', evt => closeFromLayout(evt, popupFormPlace));
 
 
 
@@ -123,7 +131,7 @@ closeButtonImage.addEventListener('click', evt => closePopup(popupBigScreenImage
 function hasInvalidInput(inputList) {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
-});
+  });
 }
 
 function toggleButtonState(inputList, buttonElement) {
