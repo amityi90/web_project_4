@@ -113,20 +113,15 @@ function closeFromLayout(evt, popup) {
   }
 }
 
-initialCards.forEach(card => addCard(card));
-
-editProfile.addEventListener('click', editButton);
-addPlaceButton.addEventListener('click', addPlace);
-closeButtonProfile.addEventListener('click', evt => closePopup(popupFormProfile));
-closeButtonPlace.addEventListener('click', evt => closePopup(popupFormPlace));
-formContentProfile.addEventListener('submit', evt => handleFormSubmit(evt));
-formContentPlace.addEventListener('submit', evt => handlePlaceAdd(evt));
-closeButtonImage.addEventListener('click', evt => closePopup(popupBigScreenImage));
-popupFormProfile.addEventListener('click', evt => closeFromLayout(evt, popupFormProfile));
-popupFormPlace.addEventListener('click', evt => closeFromLayout(evt, popupFormPlace));
-
-
-
+function closeByEsc(evt) {
+  if (evt.key === "Escape") {
+    if (!Array.from(popupFormPlace.classList).includes("popup_disable")) {
+      closePopup(popupFormPlace);
+    } else if(!Array.from(popupFormProfile.classList).includes("popup_disable")) {
+      closePopup(popupFormProfile);
+    }
+  }
+}
 
 function hasInvalidInput(inputList) {
   return inputList.some((inputElement) => {
@@ -187,3 +182,15 @@ function enableValidation() {
 }
 
 enableValidation();
+initialCards.forEach(card => addCard(card));
+editProfile.addEventListener('click', editButton);
+addPlaceButton.addEventListener('click', addPlace);
+closeButtonProfile.addEventListener('click', evt => closePopup(popupFormProfile));
+closeButtonPlace.addEventListener('click', evt => closePopup(popupFormPlace));
+formContentProfile.addEventListener('submit', evt => handleFormSubmit(evt));
+formContentPlace.addEventListener('submit', evt => handlePlaceAdd(evt));
+closeButtonImage.addEventListener('click', evt => closePopup(popupBigScreenImage));
+popupFormProfile.addEventListener('click', evt => closeFromLayout(evt, popupFormProfile));
+popupFormPlace.addEventListener('click', evt => closeFromLayout(evt, popupFormPlace));
+document.addEventListener('keydown', evt => closeByEsc(evt));
+
