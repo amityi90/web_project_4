@@ -36,12 +36,14 @@
     <section class="popup popup_disable popup_content_profile-edit">
         <div class="popup__conainer">
             <button class="popup__close-button" type="button" aria-label="close-form"></button>
-            <form class="popup__form" name="edit-profile">
+            <form class="popup__form" name="edit-profile" novalidate>
                 <h2 class="popup__heading">Edit profile</h2>
-                <input class="popup__text-input popup__text-input_content_name" type="text" placeholder="Name"
-                    name="name">
-                <input class="popup__text-input popup__text-input_content_profession" type="text" placeholder="About me"
-                    name="proffesion">
+                <input class="popup__text-input popup__text-input_content_name" id="input-name" type="text"
+                    placeholder="Name" name="name" minlength="2" maxlength="40" required>
+                <span class="popup__text-input-error" id="input-name-error"></span>
+                <input class="popup__text-input popup__text-input_content_profession" id="input-profession" type="text"
+                    placeholder="About me" name="proffesion" minlength="2" maxlength="200" required>
+                <span class="popup__text-input-error" id="input-profession-error"></span>
                 <button class="popup__save-button" type="submit">Save</button>
             </form>
         </div>
@@ -53,8 +55,10 @@
                 <h2 class="popup__heading">New place</h2>
                 <input class="popup__text-input popup__text-input_content_place-name" type="text" placeholder="Title"
                     name="place-name">
+                <span class="popup__text-input-error"></span>
                 <input class="popup__text-input popup__text-input_content_link" type="text" placeholder="Image link"
                     name="link">
+                <span class="popup__text-input-error"></span>
                 <button class="popup__save-button" type="submit">Create</button>
             </form>
         </div>

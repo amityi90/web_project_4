@@ -3,6 +3,10 @@
 @import url(./__text-input/popup__text-input.css);
 @import url(./__save-button/popup__save-button.css);
 @import url(./__conainer/popup__conainer.css);
+@import url(./__text-input-error/popup__text-input-error.css);
+@import url(./__text-input/_type_error/popup__text-input_type_error.css);
+/*@import url(./__text-input-error/_active/popup__text-input-error_active.css);*/
+@import url(./__save-button/_inactive/popup__save-button_inactive.css);
 
 .popup {
     background: rgba(0, 0, 0, .5);
