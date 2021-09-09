@@ -16,6 +16,7 @@ const popupBigScreenImage = document.querySelector(".popup_content_big-screen-im
 const closeButtonImage = popupBigScreenImage.querySelector(".popup__close-button");
 const cardTemplate = document.querySelector("#card").content;
 const cardsSection = document.querySelector(".cards");
+let openedPopup = null;
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -59,17 +60,7 @@ function addPlace() {
 
 const closeByEsc = function (evt) {
   if (evt.key === "Escape") {
-    switch (evt.target) {
-      case editProfile:
-        closePopup(popupFormProfile);
-        break;
-      case addPlaceButton:
-        closePopup(popupFormPlace);
-        break;
-      case document.querySelector(".page"):
-        closePopup(popupBigScreenImage);
-        break;
-    }
+    closePopup(openedPopup);
   }
 }
 
@@ -79,6 +70,7 @@ function closePopup(popup) {
 }
 
 function openPopup(popup) {
+  openedPopup = popup;
   popup.classList.remove("popup_disable");
   document.addEventListener('keydown', closeByEsc);
 }
