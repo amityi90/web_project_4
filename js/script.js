@@ -15,6 +15,7 @@ const placeLinkInput = popupFormPlace.querySelector(".popup__text-input_content_
 const popupBigScreenImage = document.querySelector(".popup_content_big-screen-image");
 const closeButtonImage = popupBigScreenImage.querySelector(".popup__close-button");
 const cardTemplate = document.querySelector("#card").content;
+const cardsSection = document.querySelector(".cards");
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -46,22 +47,40 @@ function editButton() {
   openPopup(popupFormProfile);
   nameInput.value = nameProfile.textContent;
   proffesionInput.value = proffesionProfile.textContent;
-  resetFormvalidation(popupFormProfile, config);
+  resetFormValidation(popupFormProfile, config);
 }
 
 function addPlace() {
   openPopup(popupFormPlace);
   placeNameInput.value = "";
   placeLinkInput.value = "";
-  resetFormvalidation(popupFormPlace, config);
+  resetFormValidation(popupFormPlace, config);
+}
+
+const closeByEsc = function (evt) {
+  if (evt.key === "Escape") {
+    switch (evt.target) {
+      case editProfile:
+        closePopup(popupFormProfile);
+        break;
+      case addPlaceButton:
+        closePopup(popupFormPlace);
+        break;
+      case document.querySelector(".page"):
+        closePopup(popupBigScreenImage);
+        break;
+    }
+  }
 }
 
 function closePopup(popup) {
   popup.classList.add("popup_disable");
+  document.removeEventListener('keydown', closeByEsc);
 }
 
 function openPopup(popup) {
   popup.classList.remove("popup_disable");
+  document.addEventListener('keydown', closeByEsc);
 }
 
 function handleFormSubmit(evt) {
@@ -80,12 +99,11 @@ function createCard(card) {
 }
 
 function addCard(card) {
-  cardElement = createCard(card);
-  const cardsElement = document.querySelector(".cards");
+  const cardElement = createCard(card);
   cardElement.querySelector(".card__heart").addEventListener('click', evt => evt.target.classList.toggle("card__heart_active"));
   cardElement.querySelector(".card__delete").addEventListener('click', evt => evt.target.parentElement.remove());
   cardElement.querySelector(".card__image").addEventListener('click', evt => openBigScreenImage(evt));
-  cardsElement.prepend(cardElement);
+  cardsSection.prepend(cardElement);
 }
 
 function handlePlaceAdd(evt) {
@@ -109,15 +127,6 @@ function closeFromLayout(evt, popup) {
   }
 }
 
-function closeByEsc(evt) {
-  if (evt.key === "Escape") {
-    if (!Array.from(popupFormPlace.classList).includes("popup_disable")) {
-      closePopup(popupFormPlace);
-    } else if (!Array.from(popupFormProfile.classList).includes("popup_disable")) {
-      closePopup(popupFormProfile);
-    }
-  }
-}
 
 initialCards.forEach(card => addCard(card));
 editProfile.addEventListener('click', editButton);
@@ -129,4 +138,4 @@ formContentPlace.addEventListener('submit', evt => handlePlaceAdd(evt));
 closeButtonImage.addEventListener('click', evt => closePopup(popupBigScreenImage));
 popupFormProfile.addEventListener('click', evt => closeFromLayout(evt, popupFormProfile));
 popupFormPlace.addEventListener('click', evt => closeFromLayout(evt, popupFormPlace));
-document.addEventListener('keydown', evt => closeByEsc(evt));
+popupBigScreenImage.addEventListener('click', evt => closeFromLayout(evt, popupBigScreenImage));

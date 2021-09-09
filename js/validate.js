@@ -69,10 +69,11 @@ function enableValidation(settings) {
     });
 }
 
-function resetFormvalidation(formElement, settings) {
-    const { inputSelector } = settings;
+function resetFormValidation(formElement, settings) {
+    const { inputSelector, submitButtonSelector } = settings;
     const inputList = Array.from(formElement.querySelectorAll(inputSelector));
-    enableValidation(settings);
+    const buttonElement = formElement.querySelector(submitButtonSelector);
+    toggleButtonState(inputList, buttonElement, settings)
     inputList.forEach((inputElement) => {
       hideInputError(formElement, inputElement, settings);
     });
