@@ -1,3 +1,13 @@
+import { Card } from "./card.js";
+import { FormValidator } from "./FormValidator.js";
+
+const config = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__text-input",
+  submitButtonSelector: ".popup__save-button",
+  inactiveButtonClass: "popup__save-button_inactive",
+  inputErrorClass: "popup__text-input_type_error",
+};
 const popupFormProfile = document.querySelector(".popup_content_profile-edit");
 const editProfile = document.querySelector(".profile__edit-button");
 const closeButtonProfile = popupFormProfile.querySelector(".popup__close-button");
@@ -44,18 +54,23 @@ const initialCards = [
   }
 ];
 
+const profileFormValidator = new FormValidator(config, formContentProfile);
+const PlaceFormValidator = new FormValidator(config, formContentPlace);
+profileFormValidator.enableValidation();
+PlaceFormValidator.enableValidation();
+
 function editButton() {
   openPopup(popupFormProfile);
   nameInput.value = nameProfile.textContent;
   proffesionInput.value = proffesionProfile.textContent;
-  resetFormValidation(popupFormProfile, config);
+  profileFormValidator.resetFormValidation();
 }
 
 function addPlace() {
   openPopup(popupFormPlace);
   placeNameInput.value = "";
   placeLinkInput.value = "";
-  resetFormValidation(popupFormPlace, config);
+  PlaceFormValidator.resetFormValidation();
 }
 
 const closeByEsc = function (evt) {
@@ -82,20 +97,11 @@ function handleFormSubmit(evt) {
   closePopup(popupFormProfile);
 }
 
-function createCard(card) {
-  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-  cardElement.querySelector(".card__image").src = card.link;
-  cardElement.querySelector(".card__image").alt = "photo of" + card.name;
-  cardElement.querySelector(".card__name").textContent = card.name;
-  return cardElement;
-}
-
 function addCard(card) {
-  const cardElement = createCard(card);
-  cardElement.querySelector(".card__heart").addEventListener('click', evt => evt.target.classList.toggle("card__heart_active"));
-  cardElement.querySelector(".card__delete").addEventListener('click', evt => evt.target.parentElement.remove());
-  cardElement.querySelector(".card__image").addEventListener('click', evt => openBigScreenImage(evt));
-  cardsSection.prepend(cardElement);
+  card.template = cardTemplate.querySelector(".card").cloneNode(true);
+  const newCard = new Card(card);
+  newCard.generateCard().querySelector(".card__image").addEventListener('click', evt => openBigScreenImage(evt));
+  cardsSection.prepend(newCard.generateCard());
 }
 
 function handlePlaceAdd(evt) {
@@ -118,7 +124,6 @@ function closeFromLayout(evt, popup) {
     closePopup(popup);
   }
 }
-
 
 initialCards.forEach(card => addCard(card));
 editProfile.addEventListener('click', editButton);
