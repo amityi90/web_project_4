@@ -24,7 +24,6 @@ class Card {
     generateCard() {
         const cardTemplate = document.querySelector(this._template).content;
         const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-        console.log(cardElement.querySelector(".card__image"));
         cardElement.querySelector(".card__image").src = this._imageLink;
         cardElement.querySelector(".card__image").alt = "photo of " + this._name;
         cardElement.querySelector(".card__name").textContent = this._name;
