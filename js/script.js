@@ -24,7 +24,6 @@ const placeNameInput = popupFormPlace.querySelector(".popup__text-input_content_
 const placeLinkInput = popupFormPlace.querySelector(".popup__text-input_content_link");
 const popupBigScreenImage = document.querySelector(".popup_content_big-screen-image");
 const closeButtonImage = popupBigScreenImage.querySelector(".popup__close-button");
-const cardTemplate = document.querySelector("#card").content;
 const cardsSection = document.querySelector(".cards");
 let openedPopup = null;
 const initialCards = [
@@ -98,10 +97,13 @@ function handleFormSubmit(evt) {
 }
 
 function addCard(card) {
-  card.template = cardTemplate.querySelector(".card").cloneNode(true);
-  const newCard = new Card(card);
-  newCard.generateCard().querySelector(".card__image").addEventListener('click', evt => openBigScreenImage(evt));
-  cardsSection.prepend(newCard.generateCard());
+  cardsSection.prepend(creatCard(card));
+}
+
+function creatCard(card) {
+  card.template = "#card";
+  const newCard = new Card(card, openBigScreenImage);
+  return newCard.generateCard();
 }
 
 function handlePlaceAdd(evt) {

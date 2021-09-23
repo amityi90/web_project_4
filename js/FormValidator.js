@@ -57,10 +57,9 @@ class FormValidator {
     }
 
     resetFormValidation() {
-        const inputList = Array.from(this._form.querySelectorAll(this._settings.inputSelector));
         const buttonElement = this._form.querySelector(this._settings.submitButtonSelector);
         this._toggleButtonState();
-        inputList.forEach((inputElement) => {
+        this._inputList.forEach((inputElement) => {
             this._hideInputError(inputElement);
         });
     }
