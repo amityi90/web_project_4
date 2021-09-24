@@ -1,10 +1,10 @@
+//the file name is with upper case (Card)
 class Card {
     constructor(data, handleCardClick ) {
         this._name = data.name;
         this._imageLink = data.link;
         this._template = data.template;
-        this._handleCardClick = handleCardClick; 
-        this._popupBigScreenImage = document.querySelector(".popup_content_big-screen-image");
+        this._handleCardClick = handleCardClick;
     }
 
     _setEventListeners(cardElement) {
