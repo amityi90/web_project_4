@@ -1,5 +1,10 @@
 import { Card } from "./card.js";
+import { Section } from "./Section.js";
 import { FormValidator } from "./FormValidator.js";
+import { PopupWithImage } from "./PopupWithImage.js";
+import { PopupWithForm } from "./PopupWithForm.js";
+import { UserInfo } from "./UserInfo.js";
+
 
 const config = {
   formSelector: ".popup__form",
@@ -22,10 +27,20 @@ const closeButtonPlace = popupFormPlace.querySelector(".popup__close-button");
 const formContentPlace = popupFormPlace.querySelector(".popup__form");
 const placeNameInput = popupFormPlace.querySelector(".popup__text-input_content_place-name");
 const placeLinkInput = popupFormPlace.querySelector(".popup__text-input_content_link");
-const popupBigScreenImage = document.querySelector(".popup_content_big-screen-image");
-const closeButtonImage = popupBigScreenImage.querySelector(".popup__close-button");
-const cardsSection = document.querySelector(".cards");
 let openedPopup = null;
+
+const imagePopup = new PopupWithImage(".popup_content_big-screen-image");
+imagePopup.setEventListeners();
+
+const profileForm = new PopupWithForm(".popup_content_profile-edit", handleProfileSubmit);
+profileForm.setEventListeners();
+
+const placeForm = new PopupWithForm(".popup_content_add-place", handlePlaceAdd);
+placeForm.setEventListeners();
+
+const User1 = new UserInfo({ nameSelsctor: ".profile__name", proffesionSelsctor: ".profile__proffesion" });
+User1.setUserInfo({ name: "Jacques Cousteau", proffesion: "Explorer" });
+
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -59,82 +74,47 @@ profileFormValidator.enableValidation();
 PlaceFormValidator.enableValidation();
 
 function editButton() {
-  openPopup(popupFormProfile);
-  nameInput.value = nameProfile.textContent;
-  proffesionInput.value = proffesionProfile.textContent;
+  profileForm.open();
+  nameInput.value = User1.getUserInfo().name;
+  proffesionInput.value = User1.getUserInfo().proffesion;
   profileFormValidator.resetFormValidation();
 }
 
 function addPlace() {
-  openPopup(popupFormPlace);
+  placeForm.open();
   placeNameInput.value = "";
   placeLinkInput.value = "";
   PlaceFormValidator.resetFormValidation();
 }
 
-const closeByEsc = function (evt) {
-  if (evt.key === "Escape") {
-    closePopup(openedPopup);
-  }
-}
-
-function closePopup(popup) {
-  popup.classList.add("popup_disable");
-  document.removeEventListener('keydown', closeByEsc);
-}
-
-function openPopup(popup) {
-  openedPopup = popup;
-  popup.classList.remove("popup_disable");
-  document.addEventListener('keydown', closeByEsc);
-}
-
-function handleFormSubmit(evt) {
+function handleProfileSubmit(evt) {
   evt.preventDefault();
-  nameProfile.textContent = nameInput.value;
-  proffesionProfile.textContent = proffesionInput.value;
-  closePopup(popupFormProfile);
-}
-
-function addCard(card) {
-  cardsSection.prepend(creatCard(card));
+  const inputs = profileForm._getInputValues();
+  User1.setUserInfo({ name: inputs.name, proffesion: inputs.proffesion });
+  profileForm.close();
 }
 
 function creatCard(card) {
   card.template = "#card";
-  const newCard = new Card(card, openBigScreenImage);
+  card.handleCardClick = imagePopup.open;
+  card.popupElement = imagePopup.getElement();
+  const newCard = new Card(card);
   return newCard.generateCard();
 }
 
 function handlePlaceAdd(evt) {
   evt.preventDefault();
+  const inputs = placeForm._getInputValues();
   const card = {};
-  card.name = placeNameInput.value;
-  card.link = placeLinkInput.value;
-  addCard(card);
-  closePopup(popupFormPlace);
+  card.name = inputs["place-name"];
+  card.link = inputs.link;
+  cardsSection.addItem(creatCard(card));
+  placeForm.close();
 }
 
-function openBigScreenImage(evt) {
-  popupBigScreenImage.querySelector(".big-screen-image__image").src = evt.target.src;
-  popupBigScreenImage.querySelector(".big-screen-image__name").textContent = evt.target.closest(".card__image-container").nextElementSibling.firstElementChild.textContent;
-  openPopup(popupBigScreenImage);
-}
+const cardsSection = new Section({ items: initialCards, renderer: creatCard }, ".cards");
+cardsSection.renderer();
 
-function closeFromLayout(evt, popup) {
-  if (Array.from(evt.target.classList).includes("popup")) {
-    closePopup(popup);
-  }
-}
 
-initialCards.forEach(card => addCard(card));
 editProfile.addEventListener('click', editButton);
 addPlaceButton.addEventListener('click', addPlace);
-closeButtonProfile.addEventListener('click', evt => closePopup(popupFormProfile));
-closeButtonPlace.addEventListener('click', evt => closePopup(popupFormPlace));
-formContentProfile.addEventListener('submit', evt => handleFormSubmit(evt));
-formContentPlace.addEventListener('submit', evt => handlePlaceAdd(evt));
-closeButtonImage.addEventListener('click', evt => closePopup(popupBigScreenImage));
-popupFormProfile.addEventListener('click', evt => closeFromLayout(evt, popupFormProfile));
-popupFormPlace.addEventListener('click', evt => closeFromLayout(evt, popupFormPlace));
-popupBigScreenImage.addEventListener('click', evt => closeFromLayout(evt, popupBigScreenImage));

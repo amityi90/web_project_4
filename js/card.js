@@ -1,16 +1,16 @@
-//the file name is with upper case (Card)
 class Card {
-    constructor(data, handleCardClick ) {
+    constructor(data) {
         this._name = data.name;
         this._imageLink = data.link;
         this._template = data.template;
-        this._handleCardClick = handleCardClick;
+        this._handleCardClick = data.handleCardClick;
+        this._popupElement = data.popupElement;
     }
 
     _setEventListeners(cardElement) {
         cardElement.querySelector(".card__heart").addEventListener('click', evt => this._likeButtonHandler(evt));
         cardElement.querySelector(".card__delete").addEventListener('click', evt => this._deleteCardHandler(evt));
-        cardElement.querySelector(".card__image").addEventListener('click', evt => this._handleCardClick(evt));
+        cardElement.querySelector(".card__image").addEventListener('click', evt => this._handleCardClick(evt, this._popupElement));
     }
 
     _likeButtonHandler(evt) {
