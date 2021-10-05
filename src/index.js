@@ -1,9 +1,19 @@
-import { Card } from "./card.js";
-import { Section } from "./Section.js";
-import { FormValidator } from "./FormValidator.js";
-import { PopupWithImage } from "./PopupWithImage.js";
-import { PopupWithForm } from "./PopupWithForm.js";
-import { UserInfo } from "./UserInfo.js";
+import "./styles/index.css";
+
+import logoSrc from "./images/around-the-us-logo.svg";
+import avatarSrc from "./images/Jacques-Cousteau-image.jpg";
+
+import { Card } from "../js/components/Card.js";
+import { Section } from "../js/components/Section.js";
+import { FormValidator } from "../js/components/FormValidator.js";
+import { PopupWithImage } from "../js/components/PopupWithImage.js";
+import { PopupWithForm } from "../js/components/PopupWithForm.js";
+import { UserInfo } from "../js/components/UserInfo.js";
+
+const logoImage = document.getElementById("around-the-us-logo");
+logoImage.src = logoSrc;
+const avatarImage = document.getElementById("Jacques-Cousteau-image");
+avatarImage.src = avatarSrc;
 
 
 const config = {
