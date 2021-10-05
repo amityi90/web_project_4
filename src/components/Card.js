@@ -4,13 +4,12 @@ class Card {
         this._imageLink = data.link;
         this._template = data.template;
         this._handleCardClick = data.handleCardClick;
-        this._popupElement = data.popupElement;
     }
 
     _setEventListeners(cardElement) {
         cardElement.querySelector(".card__heart").addEventListener('click', evt => this._likeButtonHandler(evt));
         cardElement.querySelector(".card__delete").addEventListener('click', evt => this._deleteCardHandler(evt));
-        cardElement.querySelector(".card__image").addEventListener('click', evt => this._handleCardClick(evt, this._popupElement));
+        cardElement.querySelector(".card__image").addEventListener('click', evt => this._handleCardClick(evt));
     }
 
     _likeButtonHandler(evt) {

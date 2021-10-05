@@ -3,6 +3,7 @@ class Section {
         this._items = items;
         this._renderer = renderer;
         this._sectionSelector = sectionSelector;
+        this._cardsSection = document.querySelector(this._sectionSelector);
     }
 
     renderer() {
@@ -10,8 +11,7 @@ class Section {
     }
 
     addItem(item) {
-        const cardsSection = document.querySelector(this._sectionSelector);
-        cardsSection.prepend(item);
+        this._cardsSection.prepend(item);
     }
 }
 
