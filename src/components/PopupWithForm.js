@@ -5,10 +5,10 @@ export class PopupWithForm extends Popup {
         super(popupSelector);
         this._formSubmission = formSubmission;
         this._resetForm = resetForm;
+        this._inputList = this._popupElement.querySelectorAll(".popup__text-input");
     }
 
     getInputValues() {
-        this._inputList = this._popupElement.querySelectorAll(".popup__text-input");
         this._formValues = {};
         this._inputList.forEach(input => {
             this._formValues[input.name] = input.value;
@@ -23,8 +23,15 @@ export class PopupWithForm extends Popup {
 
     close() {
         super.close();
-        this.getInputValues();
-        this._inputList[0].value = "";
-        this._inputList[1].value = "";
+        this._popupElement.querySelector(".popup__form").reset();
+    }
+
+    setInputValues(values) {
+        this._inputList.forEach(input => {
+            if(values[input.name]) {
+                input.value = values[input.name];
+            }
+        });
+
     }
 }

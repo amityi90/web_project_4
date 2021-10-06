@@ -8,8 +8,7 @@ export class UserInfo {
     }
 
     getUserInfo() {
-        console.log(this._name);
-        return { name: this._name, profession: this._profession };
+        return { name: this._nameProfile.textContent , profession: this._professionProfile.textContent };
     }
 
     setUserInfo({ name, profession }) {

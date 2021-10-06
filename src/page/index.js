@@ -36,6 +36,7 @@ placeFormValidator.enableValidation();
 
 function editButton() {
   profileForm.open();
+  profileForm.setInputValues(userData.getUserInfo());
   profileFormValidator.resetFormValidation();
 }
 
