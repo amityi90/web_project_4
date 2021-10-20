@@ -28,10 +28,14 @@ export class PopupWithForm extends Popup {
 
     setInputValues(values) {
         this._inputList.forEach(input => {
-            if(values[input.name]) {
+            if (values[input.name]) {
                 input.value = values[input.name];
             }
         });
 
+    }
+
+    getFormElement() {
+        return document.querySelector(this._popupSelector);
     }
 }

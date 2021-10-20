@@ -5,6 +5,7 @@
 @import url(./__heart/_active/card__heart_active.css);
 @import url(./__delete/card__delete.css);
 @import url(./__image-container/card__image-container.css);
+@import url(./__like-number/card__like-number.css);
 
 .card {
     position: relative;

@@ -11,6 +11,10 @@ class Section {
     }
 
     addItem(item) {
+        this._cardsSection.append(item);
+    }
+
+    addNewItem(item) {
         this._cardsSection.prepend(item);
     }
 }
