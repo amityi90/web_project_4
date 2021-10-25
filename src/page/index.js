@@ -21,8 +21,6 @@ const api = new Api({
   }
 });
 
-let cardIdDelete = "";
-
 const popupDeleteCard = new PopupWithForm(".popup_content_delete");
 
 const imagePopup = new PopupWithImage(".popup_content_big-screen-image");
@@ -34,8 +32,8 @@ profileForm.setEventListeners();
 const placeForm = new PopupWithForm(".popup_content_add-place", handlePlaceAdd);
 placeForm.setEventListeners();
 
-const deleteform = new PopupWithForm(".popup_content_delete", handleDeleteSubmit);
-deleteform.setEventListeners();
+const deleteForm = new PopupWithForm(".popup_content_delete", handleDeleteSubmit);
+deleteForm.setEventListeners();
 
 const profilePictureForm = new PopupWithForm(".popup_content_change-profile-picture", handleProfilePictureChange);
 profilePictureForm.setEventListeners();
@@ -54,15 +52,32 @@ function reloadUserInfo() {
     .then((result) => {
       userData.setUserInfo(result);
       avatarImage.src = result.avatar;
+      avatarImage.alt = "profile photo";
+    })
+    .catch((err) => {
+        console.log(err);
     });
 }
 
 function reloadCards() {
   api.getInitialCards()
-    .then((initialCards) => {
-      cardsSection = new Section({ items: initialCards, renderer: creatCard }, ".cards");
+    .then((result) => {
+      const initialCards = [];  
+      result.forEach(card => {
+        initialCards.push({
+          name: card.name,
+          link: card.link,
+          likesArray: card.likes,
+          ownerId: card.owner._id,
+          cardId: card._id
+        });
+      });
+      cardsSection = new Section({ items: initialCards, renderer: createCard }, ".cards");
       cardsSection.renderer();
     })
+    .catch((err) => {
+        console.log(err);
+    });
 }
 
 function editButton() {
@@ -84,44 +99,60 @@ function handleProfileSubmit(evt) {
     .then(() => {
       userData.setUserInfo({ name: inputs.name, about: inputs.profession });
     })
-    .finally(() => profileForm.getFormElement().querySelector(".popup__save-button").textContent = "Save");
-  profileForm.close();
+    .catch((err) => {
+        console.log(err);
+    })
+    .finally(() => {
+      profileForm.close();
+      profileForm.getFormElement().querySelector(".popup__save-button").textContent = "Save";
+    });
 }
 
 function handleCardDelete(cardId, evt) {
   popupDeleteCard.open();
-  cardIdDelete = cardId;
+  popupDeleteCard.setCardId(cardId);
 }
 
 function handleDeleteSubmit(evt) {
   evt.preventDefault();
-  api.deleteCard(cardIdDelete);
-  deleteform.close();
-  document.querySelectorAll(".card").forEach(card => {
-    if (card.id === cardIdDelete) {
-      card.remove();
-    }
-  });
-}
+  console.log(popupDeleteCard.getCardId());
+  api.deleteCard(popupDeleteCard.getCardId())
+  .then(() => {
+    document.querySelectorAll(".card").forEach(card => {
+      if (card.id === popupDeleteCard.getCardId()) {
+        card.remove();
+      }
+    });
+  })
+  .catch((err) => {
+      console.log(err);
+  })
+  .finally(() => deleteForm.close());
+} 
 
-function likeButtonHandler(evt, likesArray) {
-  if (this.checkIsLiked()) {
+function handleLikeButton(evt, likesArray) {
+  if (this._checkIsLiked()) {
     api.makeUnlike(this.getCardId())
-      .then((res) => this.updatelikes(res.likes));
-    evt.target.classList.remove("card__heart_active");
+      .then((res) => this.renderLikes(evt, res.likes, false))
+      .catch((err) => {
+          console.log(err);
+      });
   }
   else {
     api.makeLike(this.getCardId())
-      .then((res) => this.updatelikes(res.likes));
-    evt.target.classList.add("card__heart_active");
+      .then((res) => this.renderLikes(evt, res.likes, true))
+      .catch((err) => {
+          console.log(err);
+      });
   }
 }
 
-function creatCard(card) {
+function createCard(card) {
   card.template = "#card";
   card.handleCardClick = (evt) => imagePopup.open(evt);
   card.handleCardDelete = handleCardDelete;
-  card.likeButtonHandler = likeButtonHandler;
+  card.handleLikeButton = handleLikeButton;
+  card.currentId = userData.getUserInfo().id;
   const newCard = new Card(card);
   return newCard.generateCard();
 }
@@ -133,13 +164,19 @@ function handlePlaceAdd(evt) {
   const card = {};
   card.name = inputs["place-name"];
   card.link = inputs.link;
-  api.postCard(card).then((res) => {
+  api.postCard(card)
+  .then((res) => {
     card.ownerId = res.owner._id;
     card.cardId = res._id;
-    cardsSection.addNewItem(creatCard(card));
+    cardsSection.prependItem(createCard(card));
   })
-    .finally(() => placeForm.getFormElement().querySelector(".popup__save-button").textContent = "Create");
-  placeForm.close();
+  .catch((err) => {
+      console.log(err);
+  })
+    .finally(() => {
+      placeForm.close();
+      placeForm.getFormElement().querySelector(".popup__save-button").textContent = "Create";
+    });
 }
 
 function editProfilePicture() {
@@ -151,11 +188,17 @@ function handleProfilePictureChange(evt) {
   profilePictureForm.getFormElement().querySelector(".popup__save-button").textContent = "Save...";
   api.changeProfilePicture(profilePictureForm.getInputValues())
     .then(() => reloadUserInfo())
-    .finally(() => profilePictureForm.getFormElement().querySelector(".popup__save-button").textContent = "Save");
-  profilePictureForm.close();
+    .catch((err) => {
+        console.log(err);
+    })
+    .finally(() => {
+      profilePictureForm.close();
+      profilePictureForm.getFormElement().querySelector(".popup__save-button").textContent = "Save";
+    });
 }
 
-let cardsSection = new Section({ items: [], renderer: creatCard }, ".cards");
+//I'm reassigning it in line 77 in reloadCards function.
+let cardsSection = new Section({ items: [], renderer: createCard }, ".cards");
 
 reloadUserInfo();
 reloadCards();
