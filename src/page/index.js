@@ -55,14 +55,14 @@ function reloadUserInfo() {
       avatarImage.alt = "profile photo";
     })
     .catch((err) => {
-        console.log(err);
+      console.log(err);
     });
 }
 
 function reloadCards() {
   api.getInitialCards()
     .then((result) => {
-      const initialCards = [];  
+      const initialCards = [];
       result.forEach(card => {
         initialCards.push({
           name: card.name,
@@ -72,11 +72,10 @@ function reloadCards() {
           cardId: card._id
         });
       });
-      cardsSection = new Section({ items: initialCards, renderer: createCard }, ".cards");
-      cardsSection.renderer();
+      cardsSection.renderer(initialCards);
     })
     .catch((err) => {
-        console.log(err);
+      console.log(err);
     });
 }
 
@@ -98,13 +97,11 @@ function handleProfileSubmit(evt) {
   api.setUserInfo({ name: inputs.name, profession: inputs.profession })
     .then(() => {
       userData.setUserInfo({ name: inputs.name, about: inputs.profession });
-    })
-    .catch((err) => {
-        console.log(err);
-    })
-    .finally(() => {
       profileForm.close();
       profileForm.getFormElement().querySelector(".popup__save-button").textContent = "Save";
+    })
+    .catch((err) => {
+      console.log(err);
     });
 }
 
@@ -115,34 +112,37 @@ function handleCardDelete(cardId, evt) {
 
 function handleDeleteSubmit(evt) {
   evt.preventDefault();
-  console.log(popupDeleteCard.getCardId());
   api.deleteCard(popupDeleteCard.getCardId())
-  .then(() => {
-    document.querySelectorAll(".card").forEach(card => {
-      if (card.id === popupDeleteCard.getCardId()) {
-        card.remove();
-      }
-    });
-  })
-  .catch((err) => {
+    .then(() => {
+      document.querySelectorAll(".card").forEach(card => {
+        if (card.id === popupDeleteCard.getCardId()) {
+          card.remove();
+        }
+      });
+    })
+    .catch((err) => {
       console.log(err);
-  })
-  .finally(() => deleteForm.close());
-} 
+    })
+    .finally(() => deleteForm.close());
+}
 
-function handleLikeButton(evt, likesArray) {
+function handleLikeButton() {
   if (this._checkIsLiked()) {
     api.makeUnlike(this.getCardId())
-      .then((res) => this.renderLikes(evt, res.likes, false))
+      .then((res) => {
+        this.updateLikes(res.likes);
+      })
       .catch((err) => {
-          console.log(err);
+        console.log(err);
       });
   }
   else {
     api.makeLike(this.getCardId())
-      .then((res) => this.renderLikes(evt, res.likes, true))
+      .then((res) => {
+        this.updateLikes(res.likes);
+      })
       .catch((err) => {
-          console.log(err);
+        console.log(err);
       });
   }
 }
@@ -165,17 +165,15 @@ function handlePlaceAdd(evt) {
   card.name = inputs["place-name"];
   card.link = inputs.link;
   api.postCard(card)
-  .then((res) => {
-    card.ownerId = res.owner._id;
-    card.cardId = res._id;
-    cardsSection.prependItem(createCard(card));
-  })
-  .catch((err) => {
-      console.log(err);
-  })
-    .finally(() => {
+    .then((res) => {
+      card.ownerId = res.owner._id;
+      card.cardId = res._id;
+      cardsSection.prependItem(createCard(card));
       placeForm.close();
       placeForm.getFormElement().querySelector(".popup__save-button").textContent = "Create";
+    })
+    .catch((err) => {
+      console.log(err);
     });
 }
 
@@ -187,21 +185,22 @@ function handleProfilePictureChange(evt) {
   evt.preventDefault();
   profilePictureForm.getFormElement().querySelector(".popup__save-button").textContent = "Save...";
   api.changeProfilePicture(profilePictureForm.getInputValues())
-    .then(() => reloadUserInfo())
-    .catch((err) => {
-        console.log(err);
-    })
-    .finally(() => {
+    .then(() => {
+      reloadUserInfo();
       profilePictureForm.close();
       profilePictureForm.getFormElement().querySelector(".popup__save-button").textContent = "Save";
+    })
+    .catch((err) => {
+      console.log(err);
     });
 }
 
-//I'm reassigning it in line 77 in reloadCards function.
-let cardsSection = new Section({ items: [], renderer: createCard }, ".cards");
+const cardsSection = new Section({ renderer: createCard }, ".cards");
 
-reloadUserInfo();
-reloadCards();
+Promise.all([reloadUserInfo(), reloadCards()])
+  .catch((err) => {
+    console.log(err);
+  });
 
 editProfile.addEventListener('click', editButton);
 addPlaceButton.addEventListener('click', addPlace);

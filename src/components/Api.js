@@ -42,10 +42,7 @@ export class Api {
             method: "DELETE",
             headers: this._headers
         })
-            .then(res => this._getResponseData(res))
-            .then((result) => {
-                return result;
-            });
+            .then(res => this._getResponseData(res));
     }
 
     makeLike(cardId) {
@@ -53,10 +50,7 @@ export class Api {
             method: "PUT",
             headers: this._headers
         })
-            .then(res => this._getResponseData(res))
-            .then((result) => {
-                return result;
-            });
+            .then(res => this._getResponseData(res));
     }
 
     makeUnlike(cardId) {
@@ -64,10 +58,7 @@ export class Api {
             method: "DELETE",
             headers: this._headers
         })
-            .then(res => this._getResponseData(res))
-            .then((result) => {
-                return result;
-            });
+            .then(res => this._getResponseData(res));
     }
 
     changeProfilePicture({ picture }) {
@@ -78,10 +69,7 @@ export class Api {
                 avatar: picture
             })
         })
-            .then(res => this._getResponseData(res))
-            .then((result) => {
-                return result;
-            });
+            .then(res => this._getResponseData(res));
     }
 
     setUserInfo({ name, profession }) {
@@ -93,9 +81,6 @@ export class Api {
                 about: profession
             })
         })
-            .then(res => this._getResponseData(res))
-            .then((result) => {
-                return result;
-            });
+            .then(res => this._getResponseData(res));
     }
 }

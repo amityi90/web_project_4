@@ -13,7 +13,7 @@ class Card {
     }
 
     _setEventListeners() {
-        this._cardElement.querySelector(".card__heart").addEventListener('click', evt => this._handleLikeButton(evt, this._likesArray));
+        this._cardElement.querySelector(".card__heart").addEventListener('click', () => this._handleLikeButton());
         this._cardElement.querySelector(".card__image").addEventListener('click', evt => this._handleCardClick(evt));
         if (this._ownerId === this._currentId) {
             this._cardElement.querySelector(".card__delete").addEventListener('click', evt => this._handleCardDelete(this._cardId, evt));
@@ -40,7 +40,7 @@ class Card {
 
     updateLikes(likes) {
         this._likesArray = likes;
-        this._cardElement.querySelector(".card__like-number").textContent = this._likesArray.length;
+        this._renderLikes();
     }
 
     getLikes() {
@@ -52,24 +52,18 @@ class Card {
     }
 
     _checkIsLiked() {
-        let isLiked = false;
-        this._likesArray.forEach((like) => {
-            if (like._id === this._currentId) {
-                isLiked = true;
-            }
-        });
+        const isLiked = this._likesArray.some(like => like._id === this._currentId);
         return isLiked;
     }
 
-    renderLikes(evt, likes, isLiked) {
-        this.updateLikes(likes);
-        if(!this._checkIsLiked()) {
-            evt.target.classList.remove("card__heart_active");
+    _renderLikes() {
+        this._cardElement.querySelector(".card__like-number").textContent = this._likesArray.length;
+        if (this._checkIsLiked()) {
+            this._cardElement.querySelector(".card__heart").classList.add("card__heart_active");
+        } else {
+            this._cardElement.querySelector(".card__heart").classList.remove("card__heart_active");
         }
-        else {
-            evt.target.classList.add("card__heart_active");
-        }
-    } 
+    }
 }
 
 export { Card };
